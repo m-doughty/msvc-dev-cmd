@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ilammy/msvc-dev-cmd.git"
+    "url": "git+https://github.com/m-doughty/msvc-dev-cmd.git"
   },
   "keywords": [
     "GitHub",
@@ -20,14 +20,17 @@
     "Visual C++",
     "vcvarsall.bat"
   ],
-  "author": "ilammy <me@ilammy.net>",
+  "author": "Matt Doughty <m.doughty@hushmail.com>",
+  "contributors": [
+    "ilammy <me@ilammy.net>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ilammy/msvc-dev-cmd/issues"
+    "url": "https://github.com/m-doughty/msvc-dev-cmd/issues"
   },
-  "homepage": "https://github.com/ilammy/msvc-dev-cmd#readme",
+  "homepage": "https://github.com/m-doughty/msvc-dev-cmd#readme",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^2.0.3"
   },
   "devDependencies": {
     "eslint": "^7"
