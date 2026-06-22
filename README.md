@@ -71,7 +71,11 @@ jobs:
 - `uwp` – set `true` to build for Universal Windows Platform (i.e., for Windows Store)
 - `spectre` – set `true` to use Visual Studio libraries with [Spectre](https://meltdownattack.com) mitigations
 
-- `vsversion` - The Visual Studio version to use. This can be the version number (e.g. 16.0 for 2019) or the year (e.g. "2019").
+- `vsversion` - The Visual Studio version to use. This can be the version number (e.g. 16.0 for 2019, 18.0 for 2026) or the year (e.g. "2019", "2026").
+
+Visual Studio 2026 removed ARM32 targeting. If you need `x86_arm` or
+`amd64_arm`, use Visual Studio 2022 or older. On GitHub-hosted runners, use
+`windows-2022` for ARM32 jobs.
 
 ## Caveats
 

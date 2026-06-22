@@ -39,20 +39,29 @@ jobs:
         run: |
           cl.exe hello.c
           hello.exe
-      - name: Enable Developer Command Prompt (amd64_arm)
-        uses: ./
-        with:
-          arch: amd64_arm
-      - name: Compile some C code (arm)
-        shell: cmd
-        run: |
-          cl.exe hello.c
-          dumpbin /headers hello.exe
       - name: Enable Developer Command Prompt (amd64_arm64)
         uses: ./
         with:
           arch: amd64_arm64
       - name: Compile some C code (arm64)
+        shell: cmd
+        run: |
+          cl.exe hello.c
+          dumpbin /headers hello.exe
+  arm32:
+    name: arm32
+    runs-on: windows-2022
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v6
+      - name: Download Internet
+        run: npm install
+      - name: Enable Developer Command Prompt (amd64_arm)
+        uses: ./
+        with:
+          arch: amd64_arm
+          vsversion: 2022
+      - name: Compile some C code (arm)
         shell: cmd
         run: |
           cl.exe hello.c

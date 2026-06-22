@@ -9,12 +9,22 @@ const PROGRAM_FILES = [process.env['ProgramFiles(x86)'], process.env['ProgramFil
 
 
 const EDITIONS = ['Enterprise', 'Professional', 'Community', 'BuildTools']
-const YEARS = ['2022', '2019', '2017']
+const VERSIONS = ['2026', '2022', '2019', '2017']
 
 const VsYearVersion = {
+    '2026': '18.0',
     '2022': '17.0',
     '2019': '16.0',
     '2017': '15.0',
+    '2015': '14.0',
+    '2013': '12.0',
+}
+
+const VsYearDirectory = {
+    '2026': '18',
+    '2022': '2022',
+    '2019': '2019',
+    '2017': '2017',
     '2015': '14.0',
     '2013': '12.0',
 }
@@ -34,9 +44,11 @@ exports.vsversion_to_versionnumber = vsversion_to_versionnumber
 function vsversion_to_year(vsversion) {
     if (Object.keys(VsYearVersion).includes(vsversion)) {
         return vsversion
+    } else if (typeof vsversion !== 'string') {
+        return vsversion
     } else {
         for (const [year, ver] of Object.entries(VsYearVersion)) {
-            if (ver === vsversion) {
+            if (ver === vsversion || ver.split('.')[0] === vsversion.split('.')[0]) {
                 return year
             }
         }
@@ -44,6 +56,12 @@ function vsversion_to_year(vsversion) {
     return vsversion
 }
 exports.vsversion_to_year = vsversion_to_year
+
+function vsversion_to_installation_directory(vsversion) {
+    const year = vsversion_to_year(vsversion)
+    return VsYearDirectory[year] || year
+}
+exports.vsversion_to_installation_directory = vsversion_to_installation_directory
 
 const VSWHERE_PATH = `${PROGRAM_FILES_X86}\\Microsoft Visual Studio\\Installer`
 
@@ -78,9 +96,9 @@ function findVcvarsall(vsversion) {
 
     // If that does not work, try the standard installation locations,
     // starting with the latest and moving to the oldest.
-    const years = vsversion ? [vsversion_to_year(vsversion)] : YEARS
+    const versions = vsversion ? [vsversion_to_installation_directory(vsversion)] : VERSIONS.map(vsversion_to_installation_directory)
     for (const prog_files of PROGRAM_FILES) {
-        for (const ver of years) {
+        for (const ver of versions) {
             for (const ed of EDITIONS) {
                 path = `${prog_files}\\Microsoft Visual Studio\\${ver}\\${ed}\\VC\\Auxiliary\\Build\\vcvarsall.bat`
                 core.info(`Trying standard location: ${path}`)
