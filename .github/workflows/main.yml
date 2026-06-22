@@ -47,6 +47,7 @@ jobs:
         shell: cmd
         run: |
           cl.exe hello.c
+          if errorlevel 1 exit /b %errorlevel%
           dumpbin /headers hello.exe
   arm32:
     name: arm32
@@ -61,10 +62,12 @@ jobs:
         with:
           arch: amd64_arm
           vsversion: 2022
+          sdk: 10.0.19041.0
       - name: Compile some C code (arm)
         shell: cmd
         run: |
           cl.exe hello.c
+          if errorlevel 1 exit /b %errorlevel%
           dumpbin /headers hello.exe
   audit:
     name: npm audit

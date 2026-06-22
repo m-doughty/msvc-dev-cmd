@@ -75,7 +75,15 @@ jobs:
 
 Visual Studio 2026 removed ARM32 targeting. If you need `x86_arm` or
 `amd64_arm`, use Visual Studio 2022 or older. On GitHub-hosted runners, use
-`windows-2022` for ARM32 jobs.
+`windows-2022` with an ARM32-capable Windows 10 SDK, for example:
+
+```yaml
+- uses: m-doughty/msvc-dev-cmd@v1
+  with:
+    arch: amd64_arm
+    vsversion: 2022
+    sdk: 10.0.19041.0
+```
 
 ## Caveats
 
